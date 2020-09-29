@@ -1,9 +1,12 @@
 /* This file contain the main function, it controls the io and calls
 the game control function*/
 
-//Will probably use WordsAPI to characterize the type of word
-
+//Will probably use WordsAPI to characterize the type of word in the future
 #include <stdio.h>
+#include "constants.h"
+#include "./Display/printStart/printStart.h"
+#include "./GameState/gameState.h"
+#include "./GameController/generateWord/generateWord.h"
 
 int main(){
   
@@ -14,24 +17,24 @@ int main(){
   //the variable "letter" is the letter the user picked to test
   //genWord is the generated word, the user should gess
   //word contains the letters the user guessed, letters the user did not
-  //guessed yet are represente by #, ex: orange -> or#n##
+  //guessed yet are represented by #, ex: orange -> or#n##
   char letter;
-  char genWord[50], word[50];
+  char genWord[wordSize], word[wordSize];
 
   //calls the function that generates the word to be guessed
   generateWord(genWord);
-  
-  //this while keeps the user locked in the start screen, until he types 1
-  while (gameStateControl(state) != 1)
+  //this while keeps the user locked in the start screen, until he types 2
+  do 
   {
+    printStart();
     scanf("%d", state);
-  }
+  }while (gameStartControl(state) != 2);
   
   // dowhile loop receives a letter to guess, and holds the user until the game
   //ends
   do
   {
     scanf("%d", letter);
-  }while (gameStateControl(letter, word, &endType) != 1);
+  }while (gameStateControl(letter, word, genWord, &endType) != 1);
   
 }
