@@ -1,0 +1,1 @@
+#define wordSize 50

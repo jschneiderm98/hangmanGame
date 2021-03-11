@@ -1,0 +1,1 @@
+void generateWord(char *word);
